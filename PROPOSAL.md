@@ -5,8 +5,8 @@
 - 项目名称：xiangqi —— MoonBit 中国象棋规则引擎库
 - 参赛者：wbgxiaosu
 - 联系方式：1684128842@qq.com
-- GitHub 仓库链接：https://github.com/wbgxiaosu/xiangqi
-- Gitlink 仓库链接：https://gitlink.org.cn/wbgxiaosu/xiangqi （提交前与 GitHub 保持同步）
+- GitHub 仓库链接：https://github.com/wbgxiaosu/xiangqi （已上线，master 分支 11 条有效提交）
+- Gitlink 仓库链接：https://gitlink.org.cn/wbgxiaosu/xiangqi （通过官方迁移接口从 GitHub 建立镜像，保持同步）
 - 项目方向：MoonBit 游戏规则引擎 / 棋类逻辑基础库
 - 是否为原创项目：是（原创项目，非移植，未参考单一已有开源实现；perft 验证数据来自公开的象棋引擎社区参考值）
 
