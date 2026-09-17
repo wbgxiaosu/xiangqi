@@ -1,0 +1,5 @@
+import {
+  "yourname/xiangqi",
+}
+
+pkgtype(kind: "executable")

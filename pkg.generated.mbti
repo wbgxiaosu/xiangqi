@@ -1,0 +1,112 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "yourname/xiangqi"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn char_to_piece_kind(Char) -> Kind?
+
+pub fn parse_fen(String) -> Result[Board, FenError]
+
+pub fn perft(Board, Int) -> Int
+
+// Errors
+
+// Types and methods
+pub struct Board {
+  squares : Array[Piece?]
+  side_to_move : Side
+  move_number : Int
+} derive(Eq, @debug.Debug)
+pub fn Board::apply_move(Self, Move) -> Self
+pub fn Board::empty() -> Self
+pub fn Board::find_king(Self, Side) -> Pos?
+pub fn Board::get(Self, Pos) -> Piece?
+pub fn Board::in_check(Self, Side) -> Bool
+pub fn Board::initial() -> Self
+pub fn Board::is_attacked(Self, Pos, Side) -> Bool
+pub fn Board::is_checkmate(Self) -> Bool
+pub fn Board::is_stalemate(Self) -> Bool
+pub fn Board::kings_facing(Self) -> Bool
+pub fn Board::legal_moves(Self) -> Array[Move]
+pub fn Board::move_from_chinese(Self, String) -> Result[Move, NotationError]
+pub fn Board::move_from_iccs(Self, String) -> Result[Move, NotationError]
+pub fn Board::move_to_chinese(Self, Move) -> String
+pub fn Board::move_to_iccs(Self, Move) -> String
+pub fn Board::of_squares(Array[Piece?], Side, Int) -> Self
+pub fn Board::piece_count(Self) -> Int
+pub fn Board::positions_of(Self, Side, Kind) -> Array[Pos]
+pub fn Board::positions_of_side(Self, Side) -> Array[Pos]
+pub fn Board::pseudo_moves(Self) -> Array[Move]
+pub fn Board::pseudo_moves_from(Self, Pos) -> Array[Move]
+pub fn Board::render_board(Self) -> String
+pub fn Board::result(Self) -> GameResult
+pub fn Board::side(Self) -> Side
+pub fn Board::to_fen(Self) -> String
+pub fn Board::with_piece(Self, Pos, Piece) -> Self
+pub fn Board::with_side(Self, Side) -> Self
+pub fn Board::without(Self, Pos) -> Self
+
+pub enum FenError {
+  BadFieldCount
+  BadBoard(String)
+  BadSide(String)
+  BadMoveNumber(String)
+} derive(Eq, Show, @debug.Debug)
+
+pub(all) enum GameResult {
+  Ongoing
+  RedWins
+  BlackWins
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Kind {
+  King
+  Advisor
+  Elephant
+  Horse
+  Rook
+  Cannon
+  Pawn
+} derive(Eq, @debug.Debug)
+
+pub struct Move {
+  from : Pos
+  to : Pos
+} derive(Eq, @debug.Debug)
+pub fn Move::new(Pos, Pos) -> Self
+
+pub enum NotationError {
+  IllegalOrUnknown(String)
+  BadIccs(String)
+} derive(Eq, Show, @debug.Debug)
+
+pub struct Piece {
+  side : Side
+  kind : Kind
+} derive(Eq, @debug.Debug)
+pub fn Piece::black(Kind) -> Self
+pub fn Piece::red(Kind) -> Self
+
+pub struct Pos {
+  file : Int
+  rank : Int
+} derive(Eq, @debug.Debug)
+pub fn Pos::in_palace(Self, Side) -> Bool
+pub fn Pos::index(Self) -> Int
+pub fn Pos::is_valid(Self) -> Bool
+pub fn Pos::new(Int, Int) -> Self
+pub fn Pos::own_half(Self, Side) -> Bool
+
+pub(all) enum Side {
+  Red
+  Black
+} derive(Eq, @debug.Debug)
+pub fn Side::is_red(Self) -> Bool
+pub fn Side::opponent(Self) -> Self
+
+// Type aliases
+
+// Traits
