@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Run moon check when the toolchain is available; skip gracefully otherwise.
+if command -v moon >/dev/null 2>&1; then
+  moon check
+elif [ -x "$HOME/.moon/bin/moon.exe" ]; then
+  "$HOME/.moon/bin/moon.exe" check
+else
+  echo "moon not found, skipping pre-commit check"
+fi
