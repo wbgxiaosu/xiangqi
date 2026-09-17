@@ -1,10 +1,10 @@
 // Learn more about moon.mod configuration:
 // https://docs.moonbitlang.com/en/latest/toolchain/moon/module.html
 //
-// NOTE: replace `yourname` with your GitHub username before publishing
+// NOTE: replace `wbgxiaosu` with your GitHub username before publishing
 // to mooncakes.io or submitting to the contest.
 
-name = "yourname/xiangqi"
+name = "wbgxiaosu/xiangqi"
 
 version = "0.1.0"
 

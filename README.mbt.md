@@ -1,4 +1,4 @@
-# yourname/xiangqi
+# wbgxiaosu/xiangqi
 
 中国象棋规则引擎 / A Xiangqi (Chinese Chess) rules engine in pure MoonBit.
 

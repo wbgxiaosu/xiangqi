@@ -1,4 +1,4 @@
-# moonxiangqi（yourname/xiangqi）提交前自查报告
+# moonxiangqi（wbgxiaosu/xiangqi）提交前自查报告
 
 > 依据 OSC 2026 参赛指南 Review Mode 生成 · 2026-09-17
 
@@ -10,8 +10,8 @@
 
 ## 提交前需要处理的问题
 
-1. **模块命名空间是占位符**：`moon.mod` 中 `name = "yourname/xiangqi"`，
-   发布到 mooncakes.io 前必须把 `yourname` 替换为你的 GitHub 用户名
+1. **模块命名空间是占位符**：`moon.mod` 中 `name = "wbgxiaosu/xiangqi"`，
+   发布到 mooncakes.io 前必须把 `wbgxiaosu` 替换为你的 GitHub 用户名
    （README 中同样有占位链接）。⚠️ 这是当前唯一的硬性问题。
 2. **远程仓库未创建**：本仓库仅存在于本地。需在 GitHub 创建公开仓库并推送
    （建议仓库名 `xiangqi`），OSC 2026 还需要 Gitlink 仓库。
@@ -49,7 +49,7 @@
 
 ## 下一步操作指引
 
-1. 告知你的 GitHub 用户名 → 我帮你替换 `yourname` 占位符。
+1. 告知你的 GitHub 用户名 → 我帮你替换 `wbgxiaosu` 占位符。
 2. 通过安全方式（PAT 或 gh 授权，**不要使用账号密码**）创建并推送
    GitHub 仓库。
 3. 撰写申报书（我可以按章程模板帮你起草）。

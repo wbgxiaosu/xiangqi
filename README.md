@@ -21,7 +21,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/yourname/xiangqi.git
+git clone https://github.com/wbgxiaosu/xiangqi.git
 cd xiangqi
 moon check && moon test    # 16 个测试全部通过
 moon run cmd/main          # 查看终端演示
@@ -30,7 +30,7 @@ moon run cmd/main          # 查看终端演示
 ## 作为依赖使用
 
 ```bash
-moon add yourname/xiangqi
+moon add wbgxiaosu/xiangqi
 ```
 
 ```moonbit
