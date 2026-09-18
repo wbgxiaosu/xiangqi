@@ -1,89 +1,82 @@
-# moonxiangqi · 中国象棋规则引擎 (Xiangqi Rules Engine in MoonBit)
+# xiangqi · MoonBit 中国象棋规则引擎库
 
-纯 [MoonBit](https://www.moonbitlang.com) 实现的中国象棋规则引擎，零依赖，可编译到
-`wasm-gc` / `js` / `native` 全后端。为对弈应用、棋力 AI、教学工具、棋谱处理提供
-可靠的基础库。
+[![mooncakes.io](https://img.shields.io/badge/mooncakes-wbgxiaosu%2Fxiangqi-8b5cf6)](https://mooncakes.io/docs/wbgxiaosu/xiangqi)
+[![CI](https://github.com/wbgxiaosu/xiangqi/actions/workflows/ci.yml/badge.svg)](https://github.com/wbgxiaosu/xiangqi/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](./LICENSE)
 
-## 功能特性
+MoonBit 生态的中国象棋**规则基础库**：零依赖、纯逻辑、可编译到 `wasm-gc` / `js` / `native` 全后端。它不绑定任何界面与运行方式，只负责回答两个问题——**哪些走法合法，走完之后局面处于什么状态**。AI 引擎、对弈平台、教学软件、棋谱工具，都以它为规则内核，不必各自重写蹩马腿、塞象眼、将帅照面这些细节。
 
-- **完整走法生成**：车、马、炮、兵、仕、相、帅七类棋子的全部走法规则，
-  包括蹩马腿、塞象眼、炮打隔子、兵过河横移、仕相不出九宫、帅不出宫等细节
-- **规则判定**：将军检测（含马腿/炮架反向推理）、将帅照面（飞将）判定、
-  合法着法过滤、将死与困毙（无子可动判负）判定
-- **中文纵线记谱**：`炮二平五`、`马8进7`、`前车进一` 等标准记谱的双向转换，
-  红方中文数字、黑方阿拉伯数字，前/中/后消歧
-- **ICCS 坐标记谱**：`h2e2` 风格坐标的双向转换
-- **XiangqiFEN**：标准 FEN 的解析与生成
-- **Perft 验证**：开局 perft(1)=44、perft(2)=1920、perft(3)=79666，
-  与公开参考值完全一致
-- **终端棋盘渲染**：Unicode 棋盘文本图，楚河汉界，双后端棋子字形区分
-
-## 快速开始
-
-```bash
-git clone https://github.com/wbgxiaosu/xiangqi.git
-cd xiangqi
-moon check && moon test    # 16 个测试全部通过
-moon run cmd/main          # 查看终端演示
-```
-
-## 作为依赖使用
+## 安装
 
 ```bash
 moon add wbgxiaosu/xiangqi
 ```
 
+## API 一览
+
+公共接口由 `moon info` 生成的 [`pkg.generated.mbti`](./pkg.generated.mbti) 定义，类型安全、所见即所得：
+
+| 能力 | API |
+|---|---|
+| 合法走法生成 | `Board::legal_moves` / `pseudo_moves` / `pseudo_moves_from` |
+| 局面状态判定 | `in_check` / `is_checkmate` / `is_stalemate` / `kings_facing` / `result` |
+| 中文纵线记谱 | `move_from_chinese` / `move_to_chinese`（炮二平五、前车进一） |
+| ICCS 坐标记谱 | `move_from_iccs` / `move_to_iccs`（h2e2 风格） |
+| FEN 导入导出 | `parse_fen` / `Board::to_fen`（XiangqiFEN 标准） |
+| 走法生成验证 | `perft` |
+| 棋盘结构操作 | `Board::get` / `with_piece` / `without` / `piece_count` 等 |
+
+## 用法示例
+
 ```moonbit
+// 走法生成与状态判定
 let board = @xiangqi.Board::initial()
-let mv = board.move_from_chinese("炮二平五").unwrap()  // h2e2
-let next = board.apply_move(mv)
-println(board.move_to_chinese(mv))  // 炮二平五
-println(next.to_fen())
+let moves = board.legal_moves()          // 开局 44 种合法着法
+let mv = board.move_from_chinese("炮二平五").unwrap()  // 解析为 h2e2
+let next = board.apply_move(mv)          // 返回新棋盘，原局面不变
+println(board.in_check(@xiangqi.Red))    // 将军判定
+println(next.to_fen())                   // 导出 FEN
+
+// 棋谱双向转换
+println(board.move_to_chinese(mv))       // 炮二平五
+println(board.move_to_iccs(mv))          // h2e2
+
+// 从 FEN 恢复任意局面
+let mid = @xiangqi.parse_fen("2k6/9/9/9/9/9/9/9/4K4/9 w - - 0 1")
 ```
 
-## 示例输出
+## 正确性保证
 
-```text
-9 车 马 象 士 將 士 象 马 车
-8 ・ ・ ・ ・ ・ ・ ・ ・ ・
-7 ・ 砲 ・ ・ ・ ・ ・ 砲 ・
-6 卒 ・ 卒 ・ 卒 ・ 卒 ・ 卒
-5 ・ ・ ・ ・ ・ ・ ・ ・ ・
-  ～ 楚 河 ～ 汉 界 ～
-4 ・ ・ ・ ・ ・ ・ ・ ・ ・
-3 兵 ・ 兵 ・ 兵 ・ 兵 ・ 兵
-2 ・ 炮 ・ ・ ・ ・ ・ 炮 ・
-1 ・ ・ ・ ・ ・ ・ ・ ・ ・
-0 車 馬 相 仕 帅 仕 相 馬 車
-   a b c d e f g h i
-轮到红方
-```
+走法生成是所有象棋软件最容易藏 bug 的环节，本库用 perft（穷举式节点计数）逐层校验：
 
-## 设计说明
+| 深度 | 本库 | 公开参考值 |
+|---|---|---|
+| perft(1) | 44 | 44 |
+| perft(2) | 1920 | 1920 |
+| perft(3) | 79666 | 79666 |
 
-- **坐标系统**：`file` 0..8 对应 a..i（a 在红方左手），`rank` 0..9
-  （0 为红方底线，9 为黑方底线），与 ICCS/XiangqiFEN 惯例一致
-- **不可变风格**：`apply_move` 返回新棋盘，原棋盘不变，便于做搜索树
-- **记谱解析采用重生成匹配**：解析中文记谱时枚举所有合法着法并重新生成
-  记谱串做精确匹配，保证生成与解析永远对称一致
-- **马腿/炮架反向推理**：`is_attacked` 从目标格反推攻击子，正确处理
-  蹩马腿与炮架遮挡
+另有 16 个单元测试覆盖边界规则（蹩马腿、塞象眼、炮架、九宫、过河兵、将帅照面），CI 全程回归。
 
-## 路线图
+## 设计决策
 
-- [ ] 长将/长捉禁着判定
-- [ ] UCCI 协议适配层（对接象棋引擎）
-- [ ] 简单 α-β 搜索与评估示例
-- [ ] 棋谱（PGN 风格）读写
-- [ ] 发布到 mooncakes.io
+- **不可变棋盘**：`apply_move` 返回新局面，原局面不变，天然适合做搜索树与撤销
+- **生成-解析对称**：记谱解析采用"枚举合法着法 → 重新生成记谱串 → 精确匹配"策略，保证 `move_from_chinese` 与 `move_to_chinese` 永远互逆
+- **反向推理攻击判定**：`is_attacked` 从目标格反推攻击子，正确处理马腿与炮架遮挡
+- **接口即契约**：公共 API 全部沉淀在 `.mbti` 接口文件中，升级版本时 diff 即可审查兼容性
+
+## 典型集成
+
+- **象棋 AI**：`legal_moves` + `apply_move` 构成搜索树的展开层，配一层 UCCI 协议即可接入象棋界面与现有引擎
+- **对弈平台后端**：前端只画棋盘、传着法，"能不能走、是否将军、是否绝杀"集中由库判定，便于测试与审计
+- **棋谱处理管道**：FEN 解析 + 中文纵线记谱双向转换，支撑复盘软件、棋谱网站与讲棋内容
 
 ## 开发
 
 ```bash
 moon check       # 静态检查
-moon test        # 运行 16 个测试（含 perft 回归）
+moon test        # 16 个测试（含 perft 回归）
 moon fmt         # 格式化
-moon info        # 更新 .mbti 接口
+moon info        # 重新生成 .mbti 接口文件
 ```
 
 ## License

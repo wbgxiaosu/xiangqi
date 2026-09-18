@@ -18,4 +18,4 @@ keywords = [ "xiangqi", "chinese-chess", "board-game", "game-engine", "rules" ]
 
 preferred_target = "wasm-gc"
 
-description = "中国象棋规则引擎：完整的走法生成、将死/困毙判定、中文纵线记谱与 FEN 支持 / A Xiangqi (Chinese Chess) rules engine in pure MoonBit"
+description = "中国象棋规则引擎基础库：走法生成、将军/将死判定、中文纵线记谱与 FEN 解析，零依赖可复用 / Zero-dependency Xiangqi (Chinese Chess) rules engine library for MoonBit"
