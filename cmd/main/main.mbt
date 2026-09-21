@@ -23,10 +23,10 @@ fn main {
           println(after_black.render_board())
           println("FEN: \{after_black.to_fen()}")
         }
-        Err(e) => println("黑方着法解析失败: \{e}")
+        Err(e) => println("黑方着法解析失败: \{e.to_string()}")
       }
     }
-    Err(e) => println("着法解析失败: \{e}")
+    Err(e) => println("着法解析失败: \{e.to_string()}")
   }
   println("")
   println("=== 走法生成正确性验证 (perft) ===")

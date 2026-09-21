@@ -9,7 +9,18 @@ pub enum FenError {
   BadSide(String)
   /// The move number field is not a non-negative integer.
   BadMoveNumber(String)
-} derive(Eq, Show, Debug)
+} derive(Eq, Debug)
+
+///|
+/// Human-readable rendering of a FEN error (for messages and tests).
+pub fn FenError::to_string(self : FenError) -> String {
+  match self {
+    BadFieldCount => "BadFieldCount"
+    BadBoard(s) => "BadBoard(\{s})"
+    BadSide(s) => "BadSide(\{s})"
+    BadMoveNumber(s) => "BadMoveNumber(\{s})"
+  }
+}
 
 ///|
 fn char_to_kind(c : Char) -> Kind? {

@@ -182,7 +182,16 @@ pub enum NotationError {
   IllegalOrUnknown(String)
   /// The ICCS coordinate string is malformed (expected 4 chars).
   BadIccs(String)
-} derive(Eq, Show, Debug)
+} derive(Eq, Debug)
+
+///|
+/// Human-readable rendering of a notation error (for messages and tests).
+pub fn NotationError::to_string(self : NotationError) -> String {
+  match self {
+    IllegalOrUnknown(s) => "IllegalOrUnknown(\{s})"
+    BadIccs(s) => "BadIccs(\{s})"
+  }
+}
 
 ///|
 /// Interpret a Chinese notation string against the current position.
@@ -204,7 +213,7 @@ pub fn Board::move_from_chinese(
 /// Render a move in ICCS coordinate notation, e.g. `h2e2`.
 /// Files are `a`..`i` (a on Red's left), ranks `0`..`9`
 /// (0 is Red's back rank).
-pub fn Board::move_to_iccs(self : Board, mv : Move) -> String {
+pub fn Board::move_to_iccs(_self : Board, mv : Move) -> String {
   let sb = StringBuilder()
   sb.write_char(('a'.to_int() + mv.from.file).unsafe_to_char())
   sb.write_char(('0'.to_int() + mv.from.rank).unsafe_to_char())

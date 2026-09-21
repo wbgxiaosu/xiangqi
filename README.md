@@ -24,6 +24,8 @@ moon add wbgxiaosu/xiangqi
 | ICCS 坐标记谱 | `move_from_iccs` / `move_to_iccs`（h2e2 风格） |
 | FEN 导入导出 | `parse_fen` / `Board::to_fen`（XiangqiFEN 标准） |
 | 走法生成验证 | `perft` |
+| UCCI 协议适配 | `parse_position` / `move_to_ucci` / `validate_move_line`（`ucci` 子包） |
+| 对局历史与长将判定 | `GameHistory::new` / `push` / `position_repetitions` / `check_streak` / `long_check_side` |
 | 棋盘结构操作 | `Board::get` / `with_piece` / `without` / `piece_count` 等 |
 
 ## 用法示例
@@ -45,6 +47,18 @@ println(board.move_to_iccs(mv))          // h2e2
 let mid = @xiangqi.parse_fen("2k6/9/9/9/9/9/9/9/4K4/9 w - - 0 1")
 ```
 
+UCCI 适配与长将判定（`wbgxiaosu/xiangqi/ucci` 子包 + 根包 `GameHistory`）：
+
+```moonbit
+// 解析 UCCI position 命令，直接得到对局局面
+let board = @ucci.parse_position("position startpos moves h2e2 h9g7")
+
+// 长将判负（中国象棋竞赛规则）：连续将军 + 局面重复
+let history = @xiangqi.GameHistory::new(board)
+// 每走一步后：history.push(next)
+// history.long_check_side(min_repeats=2, min_streak=3) 返回违规一方
+```
+
 ## 正确性保证
 
 走法生成是所有象棋软件最容易藏 bug 的环节，本库用 perft（穷举式节点计数）逐层校验：
@@ -55,7 +69,8 @@ let mid = @xiangqi.parse_fen("2k6/9/9/9/9/9/9/9/4K4/9 w - - 0 1")
 | perft(2) | 1920 | 1920 |
 | perft(3) | 79666 | 79666 |
 
-另有 16 个单元测试覆盖边界规则（蹩马腿、塞象眼、炮架、九宫、过河兵、将帅照面），CI 全程回归。
+另有 42 个单元测试覆盖边界规则（蹩马腿、塞象眼、炮架、九宫、过河兵、将帅照面、
+长将判定、UCCI 回放），CI 全程回归。
 
 ## 设计决策
 
@@ -73,8 +88,8 @@ let mid = @xiangqi.parse_fen("2k6/9/9/9/9/9/9/9/4K4/9 w - - 0 1")
 ## 开发
 
 ```bash
-moon check       # 静态检查
-moon test        # 16 个测试（含 perft 回归）
+moon check       # 静态检查（零警告）
+moon test        # 42 个测试（含 perft 回归 / UCCI 回放 / 长将判定）
 moon fmt         # 格式化
 moon info        # 重新生成 .mbti 接口文件
 ```
