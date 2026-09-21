@@ -54,7 +54,19 @@ pub enum FenError {
   BadBoard(String)
   BadSide(String)
   BadMoveNumber(String)
-} derive(Eq, Show, @debug.Debug)
+} derive(Eq, @debug.Debug)
+pub fn FenError::to_string(Self) -> String
+
+pub struct GameHistory {
+  keys : Array[String]
+  movers : Array[Side]
+  checks : Array[Bool]
+} derive(Eq, @debug.Debug)
+pub fn GameHistory::check_streak(Self, Side) -> Int
+pub fn GameHistory::long_check_side(Self, Int, Int) -> Side?
+pub fn GameHistory::new(Board) -> Self
+pub fn GameHistory::position_repetitions(Self) -> Int
+pub fn GameHistory::push(Self, Board) -> Unit
 
 pub(all) enum GameResult {
   Ongoing
@@ -81,7 +93,8 @@ pub fn Move::new(Pos, Pos) -> Self
 pub enum NotationError {
   IllegalOrUnknown(String)
   BadIccs(String)
-} derive(Eq, Show, @debug.Debug)
+} derive(Eq, @debug.Debug)
+pub fn NotationError::to_string(Self) -> String
 
 pub struct Piece {
   side : Side

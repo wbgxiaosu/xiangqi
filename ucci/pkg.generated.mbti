@@ -1,0 +1,28 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "wbgxiaosu/xiangqi/ucci"
+
+import {
+  "moonbitlang/core/debug",
+  "wbgxiaosu/xiangqi",
+}
+
+// Values
+pub fn move_to_ucci(@xiangqi.Move) -> String
+
+pub fn parse_position(String) -> Result[@xiangqi.Board, UcciError]
+
+pub fn validate_move_line(@xiangqi.Board, String) -> Result[Array[@xiangqi.Move], UcciError]
+
+// Errors
+
+// Types and methods
+pub enum UcciError {
+  BadCommand(String)
+  BadFen(String)
+  BadMove(String)
+} derive(Eq, @debug.Debug)
+pub fn UcciError::to_string(Self) -> String
+
+// Type aliases
+
+// Traits

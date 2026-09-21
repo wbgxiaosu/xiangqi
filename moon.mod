@@ -6,7 +6,7 @@
 
 name = "wbgxiaosu/xiangqi"
 
-version = "0.2.0"
+version = "0.2.1"
 
 readme = "README.mbt.md"
 
@@ -14,7 +14,14 @@ repository = "https://github.com/wbgxiaosu/xiangqi"
 
 license = "Apache-2.0"
 
-keywords = [ "xiangqi", "chinese-chess", "rules-engine", "move-generation", "fen", "notation" ]
+keywords = [
+  "xiangqi",
+  "chinese-chess",
+  "rules-engine",
+  "move-generation",
+  "fen",
+  "notation",
+]
 
 preferred_target = "wasm-gc"
 

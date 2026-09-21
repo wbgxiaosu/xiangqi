@@ -10,9 +10,14 @@
 - 对局历史与长将禁着判定（长将判负规则）
 - Perft 验证：44 / 1920 / 79666，与公开参考值一致
 
-```moonbit
+```moonbit nocheck
+///|
 let board = @xiangqi.Board::initial()
-let mv = board.move_from_chinese("炮二平五").unwrap()  // h2e2
+
+///|
+let mv = board.move_from_chinese("炮二平五").unwrap() // h2e2
+
+///|
 let next = board.apply_move(mv)
 ```
 

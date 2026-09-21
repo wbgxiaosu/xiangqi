@@ -43,11 +43,7 @@ fn position_key(board : Board) -> String {
 ///|
 /// Start a history from any position.
 pub fn GameHistory::new(start : Board) -> GameHistory {
-  {
-    keys: [position_key(start)],
-    movers: [],
-    checks: [],
-  }
+  { keys: [position_key(start)], movers: [], checks: [], }
 }
 
 ///|
