@@ -94,6 +94,20 @@ moon fmt         # 格式化
 moon info        # 重新生成 .mbti 接口文件
 ```
 
+### 可复现演示
+
+仓库自带一个最小可执行示例（解析开局 FEN、枚举合法着法、按中文记谱走两步并渲染棋盘），
+用于验证库在本地环境可正常运行：
+
+```bash
+git clone https://github.com/wbgxiaosu/xiangqi
+cd xiangqi
+moon run cmd/main
+```
+
+预期输出：初始局面棋盘、`开局合法着法数: 44`（与 perft(1) 一致）、
+`炮二平五 (h2e2)` 与 `马8进7 (h9g7)` 两次走法及其后局面。
+
 ## License
 
 Apache-2.0
