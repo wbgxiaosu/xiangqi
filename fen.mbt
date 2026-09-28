@@ -12,6 +12,12 @@ pub enum FenError {
 } derive(Eq, Debug)
 
 ///|
+pub extend FenError with Eq::{equal, not_equal}
+
+///|
+pub extend FenError with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// Human-readable rendering of a FEN error (for messages and tests).
 pub fn FenError::to_string(self : FenError) -> String {
   match self {

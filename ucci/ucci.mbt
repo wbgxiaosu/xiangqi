@@ -18,6 +18,12 @@ pub enum UcciError {
 } derive(Eq, Debug)
 
 ///|
+pub extend UcciError with Eq::{equal, not_equal}
+
+///|
+pub extend UcciError with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// Human-readable rendering of a UCCI error (for messages and tests).
 pub fn UcciError::to_string(self : UcciError) -> String {
   match self {

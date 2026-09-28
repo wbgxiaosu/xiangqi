@@ -7,6 +7,12 @@ pub(all) enum Side {
 } derive(Eq, Debug)
 
 ///|
+pub extend Side with Eq::{equal, not_equal}
+
+///|
+pub extend Side with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// The opposing side.
 pub fn Side::opponent(self : Side) -> Side {
   match self {
@@ -33,11 +39,23 @@ pub(all) enum Kind {
 } derive(Eq, Debug)
 
 ///|
+pub extend Kind with Eq::{equal, not_equal}
+
+///|
+pub extend Kind with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// A single piece on the board.
 pub struct Piece {
   side : Side
   kind : Kind
 } derive(Eq, Debug)
+
+///|
+pub extend Piece with Eq::{equal, not_equal}
+
+///|
+pub extend Piece with @moonbitlang/core/debug.Debug::{to_repr}
 
 ///|
 /// Constructors for the two sides.
@@ -57,6 +75,12 @@ pub struct Pos {
   file : Int
   rank : Int
 } derive(Eq, Debug)
+
+///|
+pub extend Pos with Eq::{equal, not_equal}
+
+///|
+pub extend Pos with @moonbitlang/core/debug.Debug::{to_repr}
 
 ///|
 pub fn Pos::new(file : Int, rank : Int) -> Pos {
@@ -106,6 +130,12 @@ pub struct Move {
   from : Pos
   to : Pos
 } derive(Eq, Debug)
+
+///|
+pub extend Move with Eq::{equal, not_equal}
+
+///|
+pub extend Move with @moonbitlang/core/debug.Debug::{to_repr}
 
 ///|
 pub fn Move::new(from : Pos, to : Pos) -> Move {

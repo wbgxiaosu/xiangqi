@@ -22,6 +22,7 @@ pub struct Board {
 } derive(Eq, @debug.Debug)
 pub fn Board::apply_move(Self, Move) -> Self
 pub fn Board::empty() -> Self
+pub fn Board::equal(Self, Self) -> Bool
 pub fn Board::find_king(Self, Side) -> Pos?
 pub fn Board::get(Self, Pos) -> Piece?
 pub fn Board::in_check(Self, Side) -> Bool
@@ -35,6 +36,7 @@ pub fn Board::move_from_chinese(Self, String) -> Result[Move, NotationError]
 pub fn Board::move_from_iccs(Self, String) -> Result[Move, NotationError]
 pub fn Board::move_to_chinese(Self, Move) -> String
 pub fn Board::move_to_iccs(Self, Move) -> String
+pub fn Board::not_equal(Self, Self) -> Bool
 pub fn Board::of_squares(Array[Piece?], Side, Int) -> Self
 pub fn Board::piece_count(Self) -> Int
 pub fn Board::positions_of(Self, Side, Kind) -> Array[Pos]
@@ -45,6 +47,7 @@ pub fn Board::render_board(Self) -> String
 pub fn Board::result(Self) -> GameResult
 pub fn Board::side(Self) -> Side
 pub fn Board::to_fen(Self) -> String
+pub fn Board::to_repr(Self) -> @debug.Repr
 pub fn Board::with_piece(Self, Pos, Piece) -> Self
 pub fn Board::with_side(Self, Side) -> Self
 pub fn Board::without(Self, Pos) -> Self
@@ -55,6 +58,9 @@ pub enum FenError {
   BadSide(String)
   BadMoveNumber(String)
 } derive(Eq, @debug.Debug)
+pub fn FenError::equal(Self, Self) -> Bool
+pub fn FenError::not_equal(Self, Self) -> Bool
+pub fn FenError::to_repr(Self) -> @debug.Repr
 pub fn FenError::to_string(Self) -> String
 
 pub struct GameHistory {
@@ -63,16 +69,22 @@ pub struct GameHistory {
   checks : Array[Bool]
 } derive(Eq, @debug.Debug)
 pub fn GameHistory::check_streak(Self, Side) -> Int
+pub fn GameHistory::equal(Self, Self) -> Bool
 pub fn GameHistory::long_check_side(Self, Int, Int) -> Side?
 pub fn GameHistory::new(Board) -> Self
+pub fn GameHistory::not_equal(Self, Self) -> Bool
 pub fn GameHistory::position_repetitions(Self) -> Int
 pub fn GameHistory::push(Self, Board) -> Unit
+pub fn GameHistory::to_repr(Self) -> @debug.Repr
 
 pub(all) enum GameResult {
   Ongoing
   RedWins
   BlackWins
 } derive(Eq, @debug.Debug)
+pub fn GameResult::equal(Self, Self) -> Bool
+pub fn GameResult::not_equal(Self, Self) -> Bool
+pub fn GameResult::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Kind {
   King
@@ -83,17 +95,26 @@ pub(all) enum Kind {
   Cannon
   Pawn
 } derive(Eq, @debug.Debug)
+pub fn Kind::equal(Self, Self) -> Bool
+pub fn Kind::not_equal(Self, Self) -> Bool
+pub fn Kind::to_repr(Self) -> @debug.Repr
 
 pub struct Move {
   from : Pos
   to : Pos
 } derive(Eq, @debug.Debug)
+pub fn Move::equal(Self, Self) -> Bool
 pub fn Move::new(Pos, Pos) -> Self
+pub fn Move::not_equal(Self, Self) -> Bool
+pub fn Move::to_repr(Self) -> @debug.Repr
 
 pub enum NotationError {
   IllegalOrUnknown(String)
   BadIccs(String)
 } derive(Eq, @debug.Debug)
+pub fn NotationError::equal(Self, Self) -> Bool
+pub fn NotationError::not_equal(Self, Self) -> Bool
+pub fn NotationError::to_repr(Self) -> @debug.Repr
 pub fn NotationError::to_string(Self) -> String
 
 pub struct Piece {
@@ -101,24 +122,33 @@ pub struct Piece {
   kind : Kind
 } derive(Eq, @debug.Debug)
 pub fn Piece::black(Kind) -> Self
+pub fn Piece::equal(Self, Self) -> Bool
+pub fn Piece::not_equal(Self, Self) -> Bool
 pub fn Piece::red(Kind) -> Self
+pub fn Piece::to_repr(Self) -> @debug.Repr
 
 pub struct Pos {
   file : Int
   rank : Int
 } derive(Eq, @debug.Debug)
+pub fn Pos::equal(Self, Self) -> Bool
 pub fn Pos::in_palace(Self, Side) -> Bool
 pub fn Pos::index(Self) -> Int
 pub fn Pos::is_valid(Self) -> Bool
 pub fn Pos::new(Int, Int) -> Self
+pub fn Pos::not_equal(Self, Self) -> Bool
 pub fn Pos::own_half(Self, Side) -> Bool
+pub fn Pos::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Side {
   Red
   Black
 } derive(Eq, @debug.Debug)
+pub fn Side::equal(Self, Self) -> Bool
 pub fn Side::is_red(Self) -> Bool
+pub fn Side::not_equal(Self, Self) -> Bool
 pub fn Side::opponent(Self) -> Self
+pub fn Side::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

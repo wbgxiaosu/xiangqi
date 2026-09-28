@@ -185,6 +185,12 @@ pub enum NotationError {
 } derive(Eq, Debug)
 
 ///|
+pub extend NotationError with Eq::{equal, not_equal}
+
+///|
+pub extend NotationError with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// Human-readable rendering of a notation error (for messages and tests).
 pub fn NotationError::to_string(self : NotationError) -> String {
   match self {

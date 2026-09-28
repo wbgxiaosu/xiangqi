@@ -192,6 +192,12 @@ pub(all) enum GameResult {
 } derive(Eq, Debug)
 
 ///|
+pub extend GameResult with Eq::{equal, not_equal}
+
+///|
+pub extend GameResult with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// Evaluate the game status. In Xiangqi, a side with no legal moves
 /// loses whether or not it is in check (困毙 counts as a loss).
 pub fn Board::result(self : Board) -> GameResult {

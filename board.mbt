@@ -11,6 +11,12 @@ pub struct Board {
 } derive(Eq, Debug)
 
 ///|
+pub extend Board with Eq::{equal, not_equal}
+
+///|
+pub extend Board with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// Build a board from a mutable square array.
 pub fn Board::of_squares(
   squares : Array[Piece?],

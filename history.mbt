@@ -21,6 +21,12 @@ pub struct GameHistory {
 } derive(Eq, Debug)
 
 ///|
+pub extend GameHistory with Eq::{equal, not_equal}
+
+///|
+pub extend GameHistory with @moonbitlang/core/debug.Debug::{to_repr}
+
+///|
 /// Normalize a board into a repetition key: the FEN board field plus
 /// the side to move. Move counters are stripped on purpose — they do
 /// not take part in repetition detection.
